@@ -1,17 +1,16 @@
 #pragma once
 #include <stdint.h>
 
-struct Axis
+struct Packet
 {
 	int8_t x;
-	int8_t y;
-	int8_t z;
+	int8_t led;
 };
 
 class UARTCommunicator
 {
 public:
 	void init();
-	bool read(Axis &axis);
+	bool read(Packet &packet);
 };
 

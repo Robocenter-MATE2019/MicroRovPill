@@ -35,3 +35,9 @@
 //RotaryCamera
 
 #define ROTCAM_DEF_ANGLE 90
+
+//===================
+
+//LED
+
+#define LED_PIN 13

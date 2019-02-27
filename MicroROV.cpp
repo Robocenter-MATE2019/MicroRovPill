@@ -1,23 +1,22 @@
 #include "MicroROV.h"
 
-void PrintAxis(Axis& axis)
+void PrintPacket(Packet& packet)
 {
-	Serial.print(axis.x);
+	Serial.print(packet.x);
 	Serial.print('-');
-	Serial.print(axis.y);
-	Serial.print('-');
-	Serial.println(axis.z);
+	Serial.print(packet.led);
 }
 
 void MicroROV::init()
 {
 	m_uart.init();
 	m_thrustersubsystem.init();
+	m_led.init();
 }
 
-void MicroROV::run() 
+void MicroROV::run()
 {
-	m_uart.read(m_axis);
-	PrintAxis(m_axis);
-	m_thrustersubsystem.set_power(m_axis.x, m_axis.y, 0, m_axis.z);
+	m_uart.read(m_packet);
+	m_led.write(m_packet);
+	m_thrustersubsystem.set_power(m_packet);
 }

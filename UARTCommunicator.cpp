@@ -7,11 +7,11 @@ void UARTCommunicator::init()
 	pinMode(2, OUTPUT);
 }
 
-bool UARTCommunicator::read(Axis & axis)
+bool UARTCommunicator::read(Packet& packet)
 {
 	digitalWrite(2, LOW);
 
-	if (Serial.available() > 4)
+	if (Serial.available() > 3)
 	{
 		int8_t asterisk = 0;
 		while (asterisk != '*')
@@ -23,13 +23,12 @@ bool UARTCommunicator::read(Axis & axis)
 			}
 		}
 		String axis_ = Serial.readStringUntil('-');
-		if (axis_.length() != 3)
+		if (axis_.length() != 2)
 		{
 			return false;
 		}
-		axis.x = axis_[0];
-		axis.y = axis_[1];
-		axis.z = axis_[2];
+		packet.x = axis_[0];
+		packet.led = axis_[1];
 		while (Serial.available()) Serial.read();
 //		Serial.readString();
 		return true;
